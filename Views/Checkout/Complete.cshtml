@@ -1,0 +1,15 @@
+﻿@model Team4.Models.Order
+
+@{
+    ViewBag.Title = "Checkout Complete";
+}
+@* redirect from address and payment form for customer submission *@
+<h2>Checkout Complete</h2>
+<p>Thanks for your order! </p>
+<p>Your order will be delivered in approximately 30 minutes by one of our skilled delivery drivers! Please call (205) 123-4567 if your order does not arrive within 45 minutes!</p>
+<p>
+    @* redirect to order index *@
+    Still Hungry?
+    @Html.ActionLink("Order more delicious delivery food!",
+"Index", "Home")
+</p>

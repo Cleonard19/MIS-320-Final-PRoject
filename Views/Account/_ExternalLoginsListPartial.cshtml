@@ -1,0 +1,32 @@
+﻿@model Team4.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+@*view that would generally hold purpose of allowing user external authentication*@
+<h4>Use another service to log in.</h4>
+<hr />
+@{
+    //pulls login provider information from external sources in package
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    //if package login providers is null send message
+    if (loginProviders.Count() == 0) {
+        <div>
+            <p>
+                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support logging in via external services.
+            </p>
+        </div>
+    }
+    //allows for external login providers given being provided 
+    else {
+        using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in loginProviders) {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                    }
+                </p>
+            </div>
+        }
+    }
+}

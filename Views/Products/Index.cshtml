@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Team4.Models.Product>
+
+@{
+    ViewBag.Title = "Product Control Panel";
+}
+
+@*Chart view to display products data and sales tracking*@
+<h2>Product Control Panel</h2>
+
+@section Scripts
+{
+    @*Implements script for google charts from GoogleAPI*@
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.Query.ErrorMessage();
+
+        function drawChart() {
+            //Chart data including the factor - product and total sold amount
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Factor');
+            data.addColumn('number', 'Total Sold');
+
+            data.addRows([
+                //take item name from product and total sold attribute to implement each
+                @foreach (var item in Model)
+                {
+                    @Html.Raw("['" + item.Name + "'," + item.TotalSold + "],")
+                    ;
+
+                }]);
+
+            var options = {
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                    startup: true
+                },
+                backgroundColor: '#616a6b',
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#fff',
+                        strokeWidth: 1
+                    },
+                    left: 225,
+                    width: 700
+                },
+                hAxis: {
+                    textStyle: { color: '#FFF', fontName: 'Consolas' },
+                    showTextEvery: 1
+                },
+                vAxis: {
+
+                    textStyle: { color: '#FFF', fontName: 'Consolas', fontSize: 10 }
+                },
+                bar: { groupWidth: "75%" },
+                colors: ['#8b1a1a', 'FFFF00'],
+                legend: { textStyle: { color: 'white' }, fontName: 'Consolas' },
+                title: 'Total Amounts Sold'
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('revenue'));
+
+            chart.draw(data, options);
+
+        }
+
+
+    </script>
+}
+<div id="revenue" style="width: 1100px; height: 500px; display: block; margin: 0 auto; border: #ff0000; border-width: 5px; border-style: solid"></div>
+<hr />
+<center><h3>@Html.ActionLink("Recipe Details", "Index", "ProductDetails")</h3></center>
+@Html.ActionLink("Create New", "Create")
+</p>
+<table width="100%" class="display table-striped table-bordered table-responsiveness dataTable" cellpadding="13">
+    <thead>
+        <tr>
+            <th>
+                Category Name
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+               Total Sold
+            </th>
+            <th>
+                Picture URL
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSold)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductPicURL)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,60 @@
+﻿@model Team4.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+@* table with all attributes for selected product *@
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalSold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalSold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductPicURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductPicURL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @* actionlink to direct to edit view for product *@
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+    @* actionlink to redirect back to product index *@
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Contact and Feedback";
+}
+<h2>@ViewBag.Title.</h2>
+
+
+<address>
+    Bama Drive-In<br />
+    Tuscaloosa, AL 35404<br />
+    <abbr title="Phone">P:</abbr>
+    205-348-9877
+</address>
+
+<address>
+    <strong>Support:</strong>   <a href="mailto:Bama.drive.thru@gmail.com">E-mail us!</a><br />
+   
+</address>
+
+
+<h3>@ViewBag.TheMessage</h3>
+<form method="post">
+    <textarea name="Message"></textarea>
+    <br /><input type="submit" value="Send" />
+</form>

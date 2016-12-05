@@ -1,0 +1,23 @@
+﻿@model Team4.Models.Category
+
+@{
+    ViewBag.Title = "Browse";
+}
+@* browse full menu *@
+<h2><h2>Browsing Category: @Model.Name</h2></h2>
+<h3>
+    @* button to redirect to store index *@
+    <p class="button">
+        @Html.ActionLink("Back to Menu", "Index",
+        "Store")
+    </p>
+</h3>
+<ul>
+    @* iteration to include details *@
+    @foreach (var product in Model.Products)
+    {
+        <li>
+            @Html.ActionLink(product.Name, "Details", new { id = product.ProductID })
+        </li>
+    }
+</ul>

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Admin Portal";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+@* Action links for admin management related views *@
+<body>
+    <center>
+        <h3>
+            @Html.ActionLink("Ingredient Management", "Index", "Ingredients")
+            <br /><br />
+            @Html.ActionLink("View Orders", "Index", "Orders")
+            <br /><br />
+            @Html.ActionLink("Product Manager", "Index", "Products")
+            <br /><br />
+
+
+        </h3>
+    </center>
+
+</body>
+</html>

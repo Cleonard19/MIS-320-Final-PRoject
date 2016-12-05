@@ -1,0 +1,14 @@
+﻿﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Add New Role";
+}
+@* form with admin input functionality to add new role *@
+<h2>Add New User Role:</h2>
+
+@using (Html.BeginForm())
+{
+    <p> Enter User Role Name:</p>
+    //set input to instance of role in model
+    @Html.EditorFor(m => m.Name)
+    <input type="submit" value="Create Role" />
+}

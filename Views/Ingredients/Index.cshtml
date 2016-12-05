@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Team4.Models.Ingredient>
+
+@{
+    ViewBag.Title = "Ingredient Manager";
+}
+
+<h2>Ingredient Manager</h2>
+@section Scripts
+{
+    @*Implements script for google charts from GoogleAPI*@
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.Query.ErrorMessage();
+
+        function drawChart() {
+            //Chart data including the factor - product and total sold amount
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Factor');
+            data.addColumn('number', 'Percentage');
+
+            data.addRows([
+                //take item name from product and total sold attribute to implement each
+                @foreach (var item in Model)
+                {
+                    @Html.Raw("['" + item.Name + "'," + item.QtyAvail + "],")
+                    ;
+
+                }]);
+
+            var options = {
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                    startup: true
+                },
+                backgroundColor: '#616a6b',
+               legend: { textStyle: { color: 'white' }, fontName: 'Consolas' },
+                title: 'Percentage of Inventory by Ingredient'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('revenue'));
+
+            chart.draw(data, options);
+
+        }
+
+
+    </script>
+}
+<div id="revenue" style="width: 1100px; height: 500px; display: block; margin: 0 auto; border: #ff0000; border-width: 5px; border-style: solid"></div>
+
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@*This is the datatable for dsiaplying table contents from db*@
+<table width="100%" class="display table-striped table-bordered table-responsiveness dataTable" cellpadding="13">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtyAvail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyAvail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.IngredientID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IngredientID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

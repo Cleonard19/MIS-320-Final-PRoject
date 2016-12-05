@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Team4.Models.OrderDetail>
+
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<h2>Order Details</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table width="100%" class="display table-striped table-bordered table-responsiveness dataTable" cellpadding="13">
+    <thead>
+        <tr>
+            <th>
+                Order ID
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Order.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.OrderDetailId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderDetailId })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
